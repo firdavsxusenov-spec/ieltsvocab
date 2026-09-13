@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>IELTS Writing — Lug'at daftari</title>
+<style>
+  :root{
+    --bg:#F1EEE4;
+    --surface:#FFFFFF;
+    --ink:#22283B;
+    --ink-muted:#666C83;
+    --accent:#D9552B;
+    --border:#E3DFD2;
+    --tag-clause:#2F6F6B;
+    --tag-clause-bg:#E6EFEE;
+    --tag-gerund:#A85D22;
+    --tag-gerund-bg:#F3E7DA;
+    --tag-mixed:#6C4FA0;
+    --tag-mixed-bg:#EBE5F3;
+    --tag-other:#345E8C;
+    --tag-other-bg:#E4EBF2;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:-apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:48px;
+  }
+  .serif{ font-family:Georgia,"Iowan Old Style","Palatino Linotype",serif; }
+
+  header{
+    padding:28px 20px 16px;
+    max-width:640px;
+    margin:0 auto;
+  }
+  header h1{
+    font-family:Georgia,"Iowan Old Style","Palatino Linotype",serif;
+    font-size:26px;
+    line-height:1.25;
+    margin:0 0 6px;
+    font-weight:700;
+    color:var(--ink);
+  }
+  header p{
+    margin:0;
+    color:var(--ink-muted);
+    font-size:14.5px;
+    line-height:1.5;
+  }
+
+  .controls{
+    position:sticky;
+    top:0;
+    z-index:5;
+    background:var(--bg);
+    padding:10px 20px 12px;
+    max-width:640px;
+    margin:0 auto;
+    border-bottom:1px solid var(--border);
+  }
+  .search{
+    width:100%;
+    padding:11px 14px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background:var(--surface);
+    font-size:16px;
+    color:var(--ink);
+    outline:none;
+  }
+  .search:focus{ border-color:var(--accent); }
+
+  .tabs{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    margin-top:10px;
+    padding-bottom:2px;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .tabs::-webkit-scrollbar{ display:none; }
+  .tab{
+    flex:0 0 auto;
+    padding:8px 14px;
+    border-radius:20px;
+    border:1px solid var(--border);
+    background:var(--surface);
+    color:var(--ink-muted);
+    font-size:13.5px;
+    font-weight:600;
+    white-space:nowrap;
+  }
+  .tab.active{
+    background:var(--ink);
+    border-color:var(--ink);
+    color:#fff;
+  }
+
+  main{
+    max-width:640px;
+    margin:0 auto;
+    padding:14px 20px 0;
+  }
+
+  .count{
+    font-size:12.5px;
+    color:var(--ink-muted);
+    margin:6px 2px 12px;
+  }
+
+  .card{
+    width:100%;
+    text-align:left;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:14px 16px;
+    margin-bottom:10px;
+    display:block;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .card-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:10px;
+  }
+  .phrase-block{ flex:1; min-width:0; }
+  .phrase{
+    font-family:Georgia,"Iowan Old Style","Palatino Linotype",serif;
+    font-weight:700;
+    font-size:17px;
+    line-height:1.35;
+    color:var(--ink);
+  }
+  .ipa{
+    font-size:13px;
+    color:var(--ink-muted);
+    margin-top:2px;
+  }
+  .chevron{
+    font-size:13px;
+    color:var(--ink-muted);
+    margin-top:4px;
+    transition:transform .18s ease;
+    flex:0 0 auto;
+  }
+  .card.open .chevron{ transform:rotate(180deg); }
+
+  .tag{
+    display:inline-block;
+    font-size:11.5px;
+    font-weight:700;
+    padding:3px 9px;
+    border-radius:20px;
+    margin-top:9px;
+    letter-spacing:.1px;
+  }
+  .tag.clause{ color:var(--tag-clause); background:var(--tag-clause-bg); }
+  .tag.gerund{ color:var(--tag-gerund); background:var(--tag-gerund-bg); }
+  .tag.mixed{ color:var(--tag-mixed); background:var(--tag-mixed-bg); }
+  .tag.other{ color:var(--tag-other); background:var(--tag-other-bg); }
+
+  .card-body{
+    display:none;
+    margin-top:12px;
+    padding-top:12px;
+    border-top:1px solid var(--border);
+  }
+  .card.open .card-body{ display:block; }
+
+  .field-label{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.4px;
+    color:var(--ink-muted);
+    margin-bottom:3px;
+  }
+  .pattern-text{
+    font-size:14px;
+    color:var(--ink);
+    margin-bottom:12px;
+    line-height:1.4;
+  }
+  .desc{
+    font-size:14.5px;
+    color:var(--ink);
+    line-height:1.55;
+    margin-bottom:12px;
+  }
+  .example{
+    background:var(--bg);
+    border-left:3px solid var(--accent);
+    padding:10px 12px;
+    border-radius:0 8px 8px 0;
+    font-size:14.5px;
+    font-style:italic;
+    line-height:1.5;
+    color:var(--ink);
+  }
+
+  .legend{
+    max-width:640px;
+    margin:2px auto 6px;
+    padding:0 20px;
+    font-size:12px;
+    color:var(--ink-muted);
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px 14px;
+  }
+  .legend span{ display:inline-flex; align-items:center; gap:5px; }
+  .dot{ width:8px; height:8px; border-radius:50%; display:inline-block; }
+
+  .empty{
+    text-align:center;
+    color:var(--ink-muted);
+    font-size:14px;
+    padding:40px 20px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1 class="serif">IELTS Writing — Lug'at daftari</h1>
+  <p>Bog'lovchilar, kirish iboralar va Task 1 lug'ati. Kartani bosing — misol gap va grammatik qoida ochiladi.</p>
+</header>
+
+<div class="controls">
+  <input class="search" id="search" type="text" placeholder="Qidirish... (masalan: however, task 1)" autocomplete="off">
+  <div class="tabs" id="tabs">
+    <button class="tab active" data-cat="all">Barchasi</button>
+    <button class="tab" data-cat="linking">Bog'lovchilar</button>
+    <button class="tab" data-cat="intro">Kirish iboralar</button>
+    <button class="tab" data-cat="task1">Task 1 lug'ati</button>
+  </div>
+</div>
+
+<div class="legend">
+  <span><i class="dot" style="background:#2F6F6B"></i>clause bilan</span>
+  <span><i class="dot" style="background:#A85D22"></i>noun / -ing bilan</span>
+  <span><i class="dot" style="background:#6C4FA0"></i>aralash</span>
+  <span><i class="dot" style="background:#345E8C"></i>boshqa</span>
+</div>
+
+<main>
+  <div class="count" id="count"></div>
+  <div id="list"></div>
+  <div class="empty" id="empty" style="display:none;">Hech narsa topilmadi.</div>
+</main>
+
+<script>
+const DATA = [
+  // ---- Linking words ----
+  {cat:"linking", phrase:"Moreover", ipa:"/moʊˈroʊvər/", type:"clause", pattern:"+ clause (subject + verb)", desc:"Adds a further, often stronger, point that supports what was just said.", example:"Moreover, urban migration places significant pressure on housing and public transport."},
+  {cat:"linking", phrase:"Furthermore", ipa:"/ˈfɜːrðərmɔːr/", type:"clause", pattern:"+ clause (subject + verb)", desc:"Formal way to add another supporting idea; similar to 'moreover'.", example:"Furthermore, technology has transformed the way people access education worldwide."},
+  {cat:"linking", phrase:"In addition", ipa:"/ɪn əˈdɪʃn/", type:"mixed", pattern:"'in addition' + clause; 'in addition to' + noun or -ing", desc:"Introduces an extra point; 'in addition to' is followed by a noun or gerund, not a full clause.", example:"In addition to raising taxes on fuel, the government introduced strict recycling laws."},
+  {cat:"linking", phrase:"Additionally", ipa:"/əˈdɪʃənəli/", type:"clause", pattern:"+ clause (subject + verb)", desc:"Sentence-starter that adds one more piece of information.", example:"Additionally, many employees now have the option to work remotely."},
+  {cat:"linking", phrase:"What is more", ipa:"/wʌt ɪz mɔːr/", type:"clause", pattern:"+ clause (subject + verb)", desc:"Informal-neutral way to add a stronger final point.", example:"What is more, this policy could create thousands of new jobs in the renewable sector."},
+  {cat:"linking", phrase:"However", ipa:"/haʊˈevər/", type:"clause", pattern:"+ clause (subject + verb)", desc:"Introduces a contrasting idea, usually as a new sentence.", example:"However, this approach has several drawbacks that cannot be ignored."},
+  {cat:"linking", phrase:"Nevertheless", ipa:"/ˌnevərðəˈles/", type:"clause", pattern:"+ clause (subject + verb)", desc:"Shows contrast despite the previous point; more formal than 'however'.", example:"Nevertheless, most economists agree that the long-term benefits outweigh the initial costs."},
+  {cat:"linking", phrase:"Nonetheless", ipa:"/ˌnʌnðəˈles/", type:"clause", pattern:"+ clause (subject + verb)", desc:"Synonym of 'nevertheless'; used to soften a contrast.", example:"Nonetheless, small businesses continue to struggle with rising operational costs."},
+  {cat:"linking", phrase:"On the other hand", ipa:"/ɒn ði ˈʌðər hænd/", type:"clause", pattern:"+ clause (subject + verb)", desc:"Presents an opposing viewpoint, often paired with 'on one hand'.", example:"On the other hand, critics argue that such measures restrict personal freedom."},
+  {cat:"linking", phrase:"Whereas", ipa:"/wɛrˈæz/", type:"clause", pattern:"+ clause, links two clauses in one sentence", desc:"Directly contrasts two facts within a single sentence.", example:"Younger generations prefer digital communication, whereas older people still favour face-to-face conversation."},
+  {cat:"linking", phrase:"While", ipa:"/waɪl/", type:"clause", pattern:"+ clause, links two clauses in one sentence", desc:"Similar to 'whereas'; also used to mean 'during the time that'.", example:"While social media connects people globally, it can also lead to feelings of isolation."},
+  {cat:"linking", phrase:"Although", ipa:"/ɔːlˈðoʊ/", type:"clause", pattern:"+ clause, links two clauses in one sentence", desc:"Introduces a contrasting idea within the same sentence.", example:"Although the initiative is costly, its environmental benefits are undeniable."},
+  {cat:"linking", phrase:"Despite / In spite of", ipa:"/dɪˈspaɪt/, /ɪn spaɪt əv/", type:"gerund", pattern:"+ noun or -ing (gerund), NOT a full clause", desc:"Shows contrast; must be followed by a noun phrase or gerund, e.g. 'despite working hard'.", example:"Despite facing severe budget cuts, the university managed to improve its research facilities."},
+  {cat:"linking", phrase:"Even though", ipa:"/ˈiːvən ðoʊ/", type:"clause", pattern:"+ clause, links two clauses in one sentence", desc:"Stronger version of 'although'.", example:"Even though the policy was unpopular at first, it eventually gained widespread public support."},
+  {cat:"linking", phrase:"Therefore", ipa:"/ˈðerfɔːr/", type:"clause", pattern:"+ clause (subject + verb)", desc:"Shows a logical result or conclusion from the previous point.", example:"Therefore, stricter regulations are necessary to protect the natural environment."},
+  {cat:"linking", phrase:"Consequently", ipa:"/ˈkɑːnsəkwəntli/", type:"clause", pattern:"+ clause (subject + verb)", desc:"Formal way to introduce a result or effect.", example:"Consequently, air pollution levels in major cities have risen sharply over the past decade."},
+  {cat:"linking", phrase:"As a result (of)", ipa:"/æz ə rɪˈzʌlt/", type:"mixed", pattern:"'as a result' + clause; 'as a result of' + noun/-ing", desc:"Shows the outcome of something previously mentioned.", example:"As a result of rapid industrialisation, many rivers have become severely polluted."},
+  {cat:"linking", phrase:"Due to / Owing to", ipa:"/duː tuː/, /ˈoʊɪŋ tuː/", type:"gerund", pattern:"+ noun or -ing (gerund), NOT a full clause", desc:"Introduces the cause or reason, followed by a noun phrase.", example:"Due to advances in medical technology, life expectancy has increased significantly worldwide."},
+  {cat:"linking", phrase:"Because of", ipa:"/bɪˈkɔːz əv/", type:"gerund", pattern:"+ noun or -ing (gerund), NOT a full clause", desc:"Similar to 'due to'; always followed by a noun or gerund.", example:"Because of limited job opportunities in rural areas, many young people choose to move abroad."},
+  {cat:"linking", phrase:"This leads to", ipa:"/ðɪs liːdz tuː/", type:"gerund", pattern:"+ noun or -ing (gerund)", desc:"Connects a cause to its resulting effect.", example:"This leads to a gradual decline in face-to-face communication among family members."},
+  {cat:"linking", phrase:"For instance / For example", ipa:"/fər ˈɪnstəns/, /fər ɪgˈzæmpl/", type:"clause", pattern:"+ clause (subject + verb)", desc:"Introduces a specific example that illustrates the previous idea.", example:"For instance, countries such as Sweden have successfully reduced their carbon footprint through green taxation."},
+  {cat:"linking", phrase:"Such as", ipa:"/sʌtʃ æz/", type:"gerund", pattern:"+ noun (list of examples)", desc:"Introduces one or more examples within a sentence, no comma needed before a short list.", example:"Renewable sources such as solar and wind power are becoming increasingly affordable."},
+  {cat:"linking", phrase:"In conclusion / To conclude", ipa:"/ɪn kənˈkluːʒn/", type:"clause", pattern:"+ clause (subject + verb)", desc:"Signals the final summarizing sentence of an essay.", example:"In conclusion, while technology offers many benefits, its impact on social interaction should not be overlooked."},
+  {cat:"linking", phrase:"To sum up", ipa:"/tuː sʌm ʌp/", type:"clause", pattern:"+ clause (subject + verb)", desc:"Informal-neutral way to begin the conclusion.", example:"To sum up, the advantages of remote working outweigh the disadvantages for most employees."},
+  {cat:"linking", phrase:"Overall", ipa:"/ˌoʊvərˈɔːl/", type:"clause", pattern:"+ clause (subject + verb)", desc:"Gives a general summary, often used in Task 1 overviews.", example:"Overall, the graph shows a steady increase in online shopping between 2010 and 2020."},
+
+  // ---- Intro phrases ----
+  {cat:"intro", phrase:"It is often argued that", ipa:"/ɪt ɪz ˈɔːfən ˈɑːrgjuːd ðæt/", type:"clause", pattern:"+ clause (subject + verb)", desc:"A neutral, formal way to open an essay by stating a common view before giving your own opinion.", example:"It is often argued that technology has made people more isolated than ever before."},
+  {cat:"intro", phrase:"There is no doubt that", ipa:"/ðer ɪz noʊ daʊt ðæt/", type:"clause", pattern:"+ clause (subject + verb)", desc:"Expresses strong certainty about the statement that follows.", example:"There is no doubt that climate change is one of the most pressing issues of our time."},
+  {cat:"intro", phrase:"A growing number of people believe that", ipa:"/ə ˈgroʊɪŋ ˈnʌmbər əv ˈpiːpl bɪˈliːv ðæt/", type:"clause", pattern:"+ clause (subject + verb)", desc:"Shows that an opinion is becoming more common over time.", example:"A growing number of people believe that working from home improves overall productivity."},
+  {cat:"intro", phrase:"It is widely believed that", ipa:"/ɪt ɪz ˈwaɪdli bɪˈliːvd ðæt/", type:"clause", pattern:"+ clause (subject + verb)", desc:"Introduces a commonly held opinion in a formal, impersonal way.", example:"It is widely believed that higher education should be free for all citizens."},
+  {cat:"intro", phrase:"Some people argue that... while others believe that...", ipa:"/sʌm ˈpiːpl ˈɑːrgjuː ðæt/", type:"clause", pattern:"+ clause on each side", desc:"Presents two opposing views, useful for discussion-type essay introductions.", example:"Some people argue that zoos are essential for conservation, while others believe animals should never be kept in captivity."},
+  {cat:"intro", phrase:"In recent years", ipa:"/ɪn ˈriːsnt jɪrz/", type:"clause", pattern:"+ clause (subject + verb)", desc:"Sets a time frame, often used to introduce a growing trend or issue.", example:"In recent years, the number of people choosing to live in urban areas has risen dramatically."},
+  {cat:"intro", phrase:"This essay will discuss / examine", ipa:"/ðɪs ˈeseɪ wɪl dɪˈskʌs/", type:"mixed", pattern:"+ noun or clause", desc:"States the essay's purpose directly, common in the last sentence of the introduction.", example:"This essay will discuss both viewpoints before presenting my own opinion."},
+  {cat:"intro", phrase:"From my point of view", ipa:"/frʌm maɪ pɔɪnt əv vjuː/", type:"clause", pattern:"+ clause (subject + verb)", desc:"Personal opinion phrase, best used in the body or conclusion, not repeated too often.", example:"From my point of view, the government should prioritise public healthcare over military spending."},
+  {cat:"intro", phrase:"I would argue that", ipa:"/aɪ wʊd ˈɑːrgjuː ðæt/", type:"clause", pattern:"+ clause (subject + verb)", desc:"A more formal, hedged way to state a personal opinion.", example:"I would argue that individual responsibility plays a greater role than government policy in tackling obesity."},
+  {cat:"intro", phrase:"Taking everything into account", ipa:"/ˈteɪkɪŋ ˈevriθɪŋ ˈɪntuː əˈkaʊnt/", type:"clause", pattern:"+ clause (subject + verb)", desc:"A concluding phrase that signals you are weighing all points made.", example:"Taking everything into account, I believe the benefits of globalisation outweigh its drawbacks."},
+
+  // ---- Task 1 vocabulary ----
+  {cat:"task1", phrase:"Increase / Rise", ipa:"/ɪnˈkriːs/, /raɪz/", type:"other", pattern:"verb + noun ('an increase in X'); also used as a verb", desc:"Describes an upward movement in a graph or figure.", example:"The number of tourists visiting the city increased steadily from 2015 to 2020."},
+  {cat:"task1", phrase:"Decrease / Fall / Decline", ipa:"/dɪˈkriːs/, /fɔːl/, /dɪˈklaɪn/", type:"other", pattern:"verb + noun; also used as a verb", desc:"Describes a downward movement in a graph or figure.", example:"The proportion of households owning a car declined slightly over the same period."},
+  {cat:"task1", phrase:"Fluctuate", ipa:"/ˈflʌktʃueɪt/", type:"other", pattern:"used as a verb, often + 'between X and Y'", desc:"Describes irregular up-and-down movement without a clear trend.", example:"Oil prices fluctuated considerably between 2018 and 2022, with no clear overall pattern."},
+  {cat:"task1", phrase:"Remain stable / Remain steady", ipa:"/rɪˈmeɪn ˈsteɪbl/", type:"other", pattern:"used as a verb phrase", desc:"Describes a figure that stays roughly the same over a period.", example:"The birth rate remained stable at around 15 per 1,000 people throughout the decade."},
+  {cat:"task1", phrase:"Peak (at)", ipa:"/piːk/", type:"other", pattern:"verb + 'at' + number, or noun ('reached a peak')", desc:"Describes the highest point reached before falling again.", example:"Sales peaked at 5,000 units in December before falling sharply in January."},
+  {cat:"task1", phrase:"Plummet / Plunge", ipa:"/ˈplʌmɪt/, /plʌndʒ/", type:"other", pattern:"used as a verb", desc:"Describes a sudden, sharp fall — stronger than 'decrease'.", example:"Demand for print newspapers plummeted after the widespread adoption of smartphones."},
+  {cat:"task1", phrase:"Surge / Soar", ipa:"/sɜːrdʒ/, /sɔːr/", type:"other", pattern:"used as a verb", desc:"Describes a sudden, sharp rise — stronger than 'increase'.", example:"Electricity consumption soared during the summer months due to increased air-conditioner use."},
+  {cat:"task1", phrase:"In contrast to", ipa:"/ɪn ˈkɒntræst tuː/", type:"gerund", pattern:"+ noun or -ing (gerund)", desc:"Highlights a clear difference between two data sets or figures.", example:"In contrast to Country A, Country B saw a continuous decline in exports over the decade."},
+  {cat:"task1", phrase:"Compared with / Compared to", ipa:"/kəmˈpɛrd wɪð/", type:"gerund", pattern:"+ noun or -ing (gerund)", desc:"Used to directly compare two figures or trends.", example:"Compared with 2010, spending on healthcare had nearly doubled by 2020."},
+  {cat:"task1", phrase:"Whereas", ipa:"/wɛrˈæz/", type:"clause", pattern:"+ clause, links two clauses in one sentence", desc:"Common in Task 1 to contrast two categories in the same sentence.", example:"Male participation in the survey remained constant, whereas female participation rose significantly."}
+];
+
+const list = document.getElementById('list');
+const countEl = document.getElementById('count');
+const emptyEl = document.getElementById('empty');
+const searchEl = document.getElementById('search');
+const tabsEl = document.getElementById('tabs');
+let activeCat = 'all';
+
+function render(){
+  const q = searchEl.value.trim().toLowerCase();
+  const items = DATA.filter(d=>{
+    const catOk = activeCat === 'all' || d.cat === activeCat;
+    if(!catOk) return false;
+    if(!q) return true;
+    return (d.phrase + ' ' + d.desc + ' ' + d.example).toLowerCase().includes(q);
+  });
+
+  list.innerHTML = '';
+  items.forEach((d, i)=>{
+    const card = document.createElement('button');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="card-head">
+        <div class="phrase-block">
+          <div class="phrase serif">${d.phrase}</div>
+          <div class="ipa">${d.ipa}</div>
+          <span class="tag ${d.type}">${d.pattern.split(';')[0]}</span>
+        </div>
+        <div class="chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="field-label">Qanday ishlatiladi</div>
+        <div class="pattern-text">${d.pattern}</div>
+        <div class="field-label">Tavsif</div>
+        <div class="desc">${d.desc}</div>
+        <div class="field-label">Misol gap</div>
+        <div class="example">${d.example}</div>
+      </div>
+    `;
+    card.addEventListener('click', ()=> card.classList.toggle('open'));
+    list.appendChild(card);
+  });
+
+  countEl.textContent = items.length + ' ta ibora';
+  emptyEl.style.display = items.length ? 'none' : 'block';
+}
+
+tabsEl.addEventListener('click', (e)=>{
+  const btn = e.target.closest('.tab');
+  if(!btn) return;
+  [...tabsEl.children].forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  activeCat = btn.dataset.cat;
+  render();
+});
+
+searchEl.addEventListener('input', render);
+
+render();
+</script>
+</body>
+</html>
